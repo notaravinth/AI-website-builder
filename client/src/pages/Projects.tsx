@@ -37,7 +37,19 @@ const Projects = () => {
   };
 
   const downloadCode = ()=>{
-
+    const code = previewRef.current?.getCode() || project?.current_code;
+    if(!code){
+      if(isGenerating){
+        return
+      }
+      return
+    }
+    const element = document.createElement('a');
+    const file = new Blob([code],{type:"text/html"});
+    element.href = URL.createObjectURL(file)
+    element.download = "index.html"
+    document.body.appendChild(element)
+    element.click();
   }
 
   const togglePublish = async()=>{
@@ -101,7 +113,7 @@ const Projects = () => {
         <Sidebar isMenuOpen={isMenuOpen} project={project} setProject={(p)=>setProject(p)} isGenerating={isGenerating} setIsGenerating={setIsGenerating}/>
         <div className='flex-1 p-2 pl-0'>
           <ProjectPreview ref={previewRef} project={project} isGenerating={isGenerating} device={device}/>
-          project preview
+  
         </div>
       </div>
     </div>
