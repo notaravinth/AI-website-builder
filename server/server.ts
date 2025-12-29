@@ -3,7 +3,8 @@ import cors from 'cors';
 import 'dotenv/config';
 import { toNodeHandler } from 'better-auth/node';
 import { auth } from './lib/auth';
-// import userRouter from './routes/userRoutes';
+import userRouter from './routes/userRoutes';
+import projectRouter from './routes/projectRoutes';
 
 
 
@@ -28,8 +29,8 @@ app.get('/', (req: Request, res: Response) => {
     res.send('Server is Live!');
 });
 
-// app.use('/api/user', userRouter);
-
+app.use('/api/user', userRouter)
+app.use('/api/project', projectRouter)
 
 app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);
